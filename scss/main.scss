@@ -1,0 +1,121 @@
+
+$family-sans-serif: 'IBM Plex Sans';
+$primary: #008dd5;
+$light: hsl(0,0,96%);
+
+@import "bulma/bulma.sass";
+
+body {
+	background-color: $light;
+}
+
+.column {
+	transition: flex-basis 0.3s ease;
+}
+
+
+@keyframes dashmove {
+	from {
+		stroke-dashoffset: 0;
+	}
+	to {
+		stroke-dashoffset: -1000px;
+	}
+}
+
+.marker {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-size: 0.8em;
+	margin: 1em 0 0.5em 0;
+}
+
+.box {
+	background-color: $white;
+	box-shadow: none;
+	border: 1px solid #ccc;
+}
+
+#main {
+	.state path {
+		fill: #aaa;
+		transition: fill 0.2s ease;
+
+		&:hover {
+			fill: lighten($red, 20)!important;
+		}
+
+		&[data-selected="true"]{
+			fill: lighten($red, 10)!important;
+		}
+	}
+
+	&:hover {
+		.state path {
+			fill: #bbb;
+		}
+	}
+
+	path.connect {
+		pointer-events: none;
+		stroke: $red;
+	}
+
+	path.connect.one {
+		stroke-dasharray: 10px;
+		animation: dashmove 15s linear infinite;
+	}
+
+	circle {
+		pointer-events: none;
+	}
+}
+
+.columns[data-expanded="false"] {
+	> #first {
+		@include from($tablet) {
+			flex-basis: 100%;
+		}
+	}
+
+	> #second {
+		display: none;
+		@include from($tablet) {
+			flex-basis: 0%;
+		}
+	}
+}
+
+.columns[data-expanded="true"] {
+	> #first {
+		@include from($tablet) {
+			flex-basis: 75%;
+		}
+	}
+
+	> #second {
+		display: block;
+		@include from($tablet) {
+			flex-basis: 25%;
+		}
+	}
+
+	#main {
+		path.connect {
+			stroke: lighten($dark, 20);
+		}
+		path.connect[data-selected="true"] {
+			stroke: $red;
+		}
+	}
+}
+
+#content-state {
+	font-size: 2em;
+	margin-bottom: 1rem;
+}
+
+ul {
+	padding-left: 1em;
+	list-style: circle;
+}
