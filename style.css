@@ -9366,7 +9366,7 @@ body {
 }
 
 .column {
-  transition: flex-basis 0.3s ease;
+  transition: opacity 0.3s ease, flex-basis 0.3s ease, max-width 0.3s ease;
 }
 
 @keyframes dashmove {
@@ -9390,56 +9390,52 @@ body {
   border: 1px solid #ccc;
 }
 
-#main .state path {
+.columns > #second {
+  opacity: 0;
+}
+@media screen and (min-width: 769px) {
+  .columns > #second {
+    max-width: 0;
+  }
+}
+.columns #main .state path {
   fill: #aaa;
   transition: fill 0.2s ease;
 }
-#main .state path:hover {
+.columns #main .state path:hover {
   fill: #f8a5b6 !important;
 }
-#main .state path[data-selected=true] {
+.columns #main .state path[data-selected=true] {
   fill: #f5758f !important;
 }
-#main:hover .state path {
+.columns #main:hover .state path {
   fill: #bbb;
 }
-#main path.connect {
+.columns #main path.connect {
   pointer-events: none;
   stroke: #f14668;
+  transition: all 0.5s ease;
 }
-#main path.connect.one {
+.columns #main path.connect.one {
   stroke-dasharray: 10px;
   animation: dashmove 15s linear infinite;
 }
-#main circle {
+.columns #main path.connect.hidden {
+  opacity: 0;
+}
+.columns #main circle {
   pointer-events: none;
 }
 
-@media screen and (min-width: 769px) {
-  .columns[data-expanded=false] > #first {
-    flex-basis: 100%;
-  }
-}
-.columns[data-expanded=false] > #second {
-  display: none;
-}
-@media screen and (min-width: 769px) {
-  .columns[data-expanded=false] > #second {
-    flex-basis: 0%;
-  }
-}
-
-@media screen and (min-width: 769px) {
-  .columns[data-expanded=true] > #first {
-    flex-basis: 75%;
-  }
-}
 .columns[data-expanded=true] > #second {
-  display: block;
+  opacity: 1;
 }
 @media screen and (min-width: 769px) {
   .columns[data-expanded=true] > #second {
-    flex-basis: 25%;
+    max-width: 300px;
+  }
+  .columns[data-expanded=true] > #second > #content {
+    width: 300px;
   }
 }
 .columns[data-expanded=true] #main path.connect {
@@ -9447,6 +9443,7 @@ body {
 }
 .columns[data-expanded=true] #main path.connect[data-selected=true] {
   stroke: #f14668;
+  opacity: 1;
 }
 
 #content-state {

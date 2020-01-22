@@ -10,9 +10,8 @@ body {
 }
 
 .column {
-	transition: flex-basis 0.3s ease;
+	transition: opacity 0.3s ease, flex-basis 0.3s ease, max-width 0.3s ease;
 }
-
 
 @keyframes dashmove {
 	from {
@@ -36,67 +35,61 @@ body {
 	border: 1px solid #ccc;
 }
 
-#main {
-	.state path {
-		fill: #aaa;
-		transition: fill 0.2s ease;
+.columns {
+	> #second {
+		opacity: 0;
+		@include from($tablet) {
+			max-width: 0;
+		}
+	}
+
+	#main {
+		.state path {
+			fill: #aaa;
+			transition: fill 0.2s ease;
+
+			&:hover {
+				fill: lighten($red, 20)!important;
+			}
+
+			&[data-selected="true"]{
+				fill: lighten($red, 10)!important;
+			}
+		}
 
 		&:hover {
-			fill: lighten($red, 20)!important;
+			.state path {
+				fill: #bbb;
+			}
 		}
 
-		&[data-selected="true"]{
-			fill: lighten($red, 10)!important;
+		path.connect {
+			pointer-events: none;
+			stroke: $red;
+			transition: all 0.5s ease;
 		}
-	}
 
-	&:hover {
-		.state path {
-			fill: #bbb;
+		path.connect.one {
+			stroke-dasharray: 10px;
+			animation: dashmove 15s linear infinite;
 		}
-	}
 
-	path.connect {
-		pointer-events: none;
-		stroke: $red;
-	}
-
-	path.connect.one {
-		stroke-dasharray: 10px;
-		animation: dashmove 15s linear infinite;
-	}
-
-	circle {
-		pointer-events: none;
-	}
-}
-
-.columns[data-expanded="false"] {
-	> #first {
-		@include from($tablet) {
-			flex-basis: 100%;
+		path.connect.hidden {
+			opacity: 0;
 		}
-	}
 
-	> #second {
-		display: none;
-		@include from($tablet) {
-			flex-basis: 0%;
+		circle {
+			pointer-events: none;
 		}
 	}
 }
 
 .columns[data-expanded="true"] {
-	> #first {
-		@include from($tablet) {
-			flex-basis: 75%;
-		}
-	}
-
 	> #second {
-		display: block;
+		opacity: 1;
 		@include from($tablet) {
-			flex-basis: 25%;
+			> #content { width: 300px; }
+			max-width: 300px;
 		}
 	}
 
@@ -106,6 +99,7 @@ body {
 		}
 		path.connect[data-selected="true"] {
 			stroke: $red;
+			opacity: 1;
 		}
 	}
 }

@@ -1,10 +1,11 @@
 <!doctype html>
-
 <html>
 	<head>
-		<title> Least Favorite State </title>
-		<link rel="stylesheet" href="style.css">
+		<title> States' Least Favorite State </title>
 		<meta charset="utf-8">
+		<meta name="description" content="My take on the visualization for the states that hate each other that I saw on Reddit.">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<nav class="navbar is-light">
@@ -16,7 +17,7 @@
 		</nav>
 		<section class="section">
 			<div class="container">
-				<div id="main-columns" class="columns" data-expanded="false">
+				<div id="main-columns" class="columns is-gapless" data-expanded="false">
 					<div id="first" class="column">
 						<svg id="main" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto" viewBox="0 0 959 593">
 						<title>US States</title>
@@ -199,9 +200,11 @@
 				</div>
 				<p class="marker">Special Awards</p>
 				<div class="tags">
-					<button onclick="$s('#CA').dispatchEvent(new CustomEvent('click'))" class="tag button is-danger button">Most Hated</button>
-					<button onclick="$s('#NJ').dispatchEvent(new CustomEvent('click'))" class="tag button is-warning">New Jersey</button>
-					<button onclick="$s('#FL').dispatchEvent(new CustomEvent('click'))" class="tag button is-info">Suicidal</button>
+					<button onclick="deselect()" class="tag button is-light button">Deselect</button>
+					<button onclick="selectOne('CA')" class="tag button is-danger button">Most Hated</button>
+					<button onclick="selectOne('NJ')" class="tag button is-warning">New Jersey</button>
+					<button onclick="selectOne('FL')" class="tag button is-info">Suicidal</button>
+					<button onclick="selectRivals()" class="tag button is-info">Rivals</button>
 				</div>
 			</div>
 		</section>
